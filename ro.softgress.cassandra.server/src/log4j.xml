@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<!-- ===================================================================== -->
+<!--                                                                       -->
+<!--  Log4j Configuration                                                  -->
+<!--                                                                       -->
+<!-- ===================================================================== -->
+<!-- $Id$ -->
+<!--
+        | For more configuration infromation and examples see the Jakarta Log4j
+        | owebsite: http://jakarta.apache.org/log4j
+-->
+<log4j:configuration>
+    <appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d %-5p [%t] %C{2} (%F:%L) - %m%n" />
+        </layout>
+    </appender>
+    <appender name="FILE" class="org.apache.log4j.FileAppender">
+        <param name="File" value="application.log" />
+        <param name="Append" value="true" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d %-5p %l - %m%n" />
+        </layout>
+    </appender>
+
+	<!-- Limit the org.hibernate category to INFO since logging to DEBUG affects performance badly -->
+    <category name="org.hibernate">
+        <priority value="INFO" />
+    </category>
+
+    <category name="org.apache.pdfbox.pdfparser.PDFObjectStreamParser">
+        <priority value="INFO" />
+    </category>
+
+    <category name="org.apache.pdfbox.util.PDFStreamEngine">
+        <priority value="INFO" />
+    </category>
+
+<!-- pt. debug la sql generat de hibernate decomentati 
+   <category name="org.hibernate.SQL">
+      <priority value="DEBUG"/>
+   </category>
+   <category name="org.hibernate.type">
+      <priority value="DEBUG"/>
+   </category>
+
+	<category name="org.hibernate.transaction">
+		<priority value="DEBUG"/>
+	</category>
+	<category name="org.hibernate.event.def.AbstractFlushingEventListener">
+		<priority value="DEBUG"/>
+	</category>
+-->
+
+    <root>
+        <priority value="INFO" />
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="FILE" />
+    </root>
+</log4j:configuration>

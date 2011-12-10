@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ro.softgress.cassandra.client"/>
+	<classpathentry kind="lib" path="lib/cassandra-thrift-1.0.0.jar"/>
+	<classpathentry kind="lib" path="lib/commons-lang-2.4.jar"/>
+	<classpathentry kind="lib" path="lib/commons-pool-1.5.3.jar"/>
+	<classpathentry kind="lib" path="lib/FastInfoset-1.2.2.jar"/>
+	<classpathentry kind="lib" path="lib/guava-r09.jar"/>
+	<classpathentry kind="lib" path="lib/hector-core-1.0-1-sources.jar"/>
+	<classpathentry kind="lib" path="lib/hector-core-1.0-1-tests.jar"/>
+	<classpathentry kind="lib" path="lib/hector-core-1.0-1.jar"/>
+	<classpathentry kind="lib" path="lib/libthrift-0.6.1.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-api-1.6.1.jar"/>
+	<classpathentry kind="lib" path="lib/speed4j-0.9.jar"/>
+	<classpathentry kind="lib" path="lib/uuid-3.2.0.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2.16.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-log4j12-1.6.0.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
