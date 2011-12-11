@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,13 +28,13 @@ public class Main {
 
 	private Logger logger = LoggerFactory.getLogger(Main.class);
 
-	private final int PROCESS_THREAD_COUNT = 10;
+	private final int PROCESS_THREAD_COUNT = 6;
 	
 	private long count = 0;
 	private long startTime = -1;
 	private long lastTime;
 	
-	private ConcurrentLinkedQueue<Data[]> queue = new ConcurrentLinkedQueue<Data[]>();
+	private LinkedBlockingQueue<Data[]> queue = new LinkedBlockingQueue<Data[]>();
 	
 	/**
 	 * @param args
@@ -119,7 +120,13 @@ public class Main {
 				dataRow.getColumns().add(data);
 			 */
 			while(true) {
-				Data[] datas = queue.poll();
+				Data[] datas;
+				try {
+					datas = queue.take();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+					break;
+				}
 				//DAO dao = new DAO();
 				if (datas != null) {
 					for (int i = 0; i < datas.length; i++) {
