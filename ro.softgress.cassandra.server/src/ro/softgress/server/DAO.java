@@ -63,8 +63,9 @@ public class DAO {
 		for (Data d : datas) {
 			String columnName = String.valueOf(d.getApplicationId()) + String.valueOf(d.getSystemId())
 					+ String.valueOf(d.getTimestamp());
-			mutator.addInsertion(String.valueOf(d.getTimestamp() / 1000), "Standard1",
+			mutator.addInsertion(String.valueOf(d.getTimestamp() / 1000), "metrics",
 					HFactory.createStringColumn(columnName, d.getValue()));
 		}
+		mutator.execute();
 	}
 }
