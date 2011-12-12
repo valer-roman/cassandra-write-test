@@ -26,7 +26,7 @@ import com.sun.net.httpserver.HttpServer;
  */
 public class Main {
 
-	private static final int PROCESS_THREAD_COUNT = 30;
+	private static final int PROCESS_THREAD_COUNT = 10;
 	private static final long PRINT_INTERVAL = 60000;
 
 	private LinkedBlockingQueue<Data[]> queue = new LinkedBlockingQueue<Data[]>();
