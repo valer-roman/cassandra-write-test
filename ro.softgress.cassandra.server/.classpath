@@ -10,7 +10,7 @@
 	<classpathentry kind="lib" path="lib/guava-r09.jar"/>
 	<classpathentry kind="lib" path="lib/hector-core-1.0-1-sources.jar"/>
 	<classpathentry kind="lib" path="lib/hector-core-1.0-1-tests.jar"/>
-	<classpathentry kind="lib" path="lib/hector-core-1.0-1.jar"/>
+	<classpathentry kind="lib" path="lib/hector-core-1.0-1.jar" sourcepath="lib/hector-core-1.0-1-sources.jar"/>
 	<classpathentry kind="lib" path="lib/libthrift-0.6.1.jar"/>
 	<classpathentry kind="lib" path="lib/slf4j-api-1.6.1.jar"/>
 	<classpathentry kind="lib" path="lib/speed4j-0.9.jar"/>
