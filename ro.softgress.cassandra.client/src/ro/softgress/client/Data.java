@@ -1,5 +1,5 @@
 /**
- * 
+ * Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
  */
 package ro.softgress.client;
 
@@ -7,15 +7,17 @@ import java.io.Serializable;
 
 /**
  * @author valer
- *
+ * 
  */
 public class Data implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private long timestamp;
 	private int applicationId;
 	private int systemId;
 	private String value;
-	
+
 	public Data(long timestamp, int applicationId, int systemId, String value) {
 		this.timestamp = timestamp;
 		this.applicationId = applicationId;
@@ -79,7 +81,8 @@ public class Data implements Serializable {
 		this.value = value;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -88,5 +91,5 @@ public class Data implements Serializable {
 		sb.append("Data[ts:" + timestamp + ",value:" + value + "]");
 		return sb.toString();
 	}
-	
+
 }
