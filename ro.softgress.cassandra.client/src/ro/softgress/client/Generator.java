@@ -16,16 +16,14 @@ public class Generator {
 	private int systemId = generateId();
 
 	private int generateId() {
-		Integer id = random.nextInt(10);
-		random.setSeed(System.currentTimeMillis() + id);
+		Integer id = random.nextInt();
 		return id;
 	}
 
 	public Data generateData() {
-		long timestamp = System.currentTimeMillis();
+		long timestamp = random.nextLong();;
 		long valueLong = random.nextLong();
 		String value = "value" + valueLong;
-		random.setSeed(timestamp + valueLong);
 		return new Data(timestamp, applicationId, systemId, value);
 	}
 }

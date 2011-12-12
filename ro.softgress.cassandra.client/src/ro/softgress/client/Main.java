@@ -21,7 +21,7 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 public class Main {
 
-	private static final int THREAD_COUNT = 100;
+	private static final int THREAD_COUNT = 10;
 	private static final int PACKAGE_SIZE = 1000;
 	private static final long PRINT_INTERVAL = 60000;
 
@@ -67,11 +67,11 @@ public class Main {
 			Data[] datas = new Data[PACKAGE_SIZE];
 			int packagesNb = 0;
 			while (true) {
-				try {
-					Thread.sleep(1);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+				// try {
+				// Thread.sleep(1);
+				// } catch (InterruptedException e) {
+				// e.printStackTrace();
+				// }
 				Data data = gen.generateData();
 				//send to server
 				datas[packagesNb++] = data;
