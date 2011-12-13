@@ -29,7 +29,7 @@ public class Main {
 	private static final int PROCESS_THREAD_COUNT = 3;
 	private static final long PRINT_INTERVAL = 60000;
 
-	private LinkedBlockingQueue<Data[]> queue = new LinkedBlockingQueue<Data[]>();
+	private LinkedBlockingQueue<Data[]> queue = new LinkedBlockingQueue<Data[]>(2000);
 	private final AtomicLong count = new AtomicLong(0);
 
 	private enum DB_SYSTEM {
@@ -97,15 +97,17 @@ public class Main {
 		public void handle(HttpExchange xchg) throws IOException {
 			Data[] datas = null;
 			ObjectInputStream ois = new ObjectInputStream(xchg.getRequestBody());
+			boolean accepted = false;
 			try {
 				datas = (Data[]) ois.readObject();
-				queue.add(datas);
+				accepted = queue.offer(datas);
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}
-			xchg.sendResponseHeaders(200, "SUCCESS".length());
+			String response = accepted ? "ACCEPTED" : "REJECTED";
+			xchg.sendResponseHeaders(200, response.length());
 			OutputStream os = xchg.getResponseBody();
-			os.write("SUCCESS".getBytes());
+			os.write(response.getBytes());
 			os.flush();
 			os.close();
 		}

@@ -21,11 +21,13 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 public class Main {
 
-	private static final int THREAD_COUNT = 7;
+	private static final int THREAD_COUNT = 10;
 	private static final int PACKAGE_SIZE = 100;
 	private static final long PRINT_INTERVAL = 60000;
 
 	private final AtomicLong count = new AtomicLong(0);
+	private final AtomicLong countDropped = new AtomicLong(0);
+	
 	/**
 	 * @param args
 	 */
@@ -55,7 +57,9 @@ public class Main {
 			long timeDelta = (System.currentTimeMillis() - startTime) / 1000;
 			long cc = count.getAndSet(0);
 			long objectsPerSec = cc / timeDelta;
-			System.out.println("client gen&sent " + objectsPerSec + " objects per second");
+			long cd = countDropped.getAndSet(0);
+			long droppedObjectsPerSec = cd / timeDelta;
+			System.out.println("client gen&sent/dropped " + objectsPerSec + "/" + droppedObjectsPerSec + " objects per second");
 		}
 	}
 
@@ -76,16 +80,17 @@ public class Main {
 				//send to server
 				datas[packagesNb++] = data;
 				if (packagesNb == PACKAGE_SIZE) {
-					sendToServer(datas);
+					boolean accepted = sendToServer(datas);
 					packagesNb = 0;
 					count.getAndAdd(PACKAGE_SIZE);
+					if (!accepted) {countDropped.getAndAdd(PACKAGE_SIZE);}
 				}
 			}
 		}
 
 	}
 
-	private void sendToServer(Data[] datas) {
+	private boolean sendToServer(Data[] datas) {
 		ObjectOutputStream serverDataStream = null;
 		BufferedReader serverResponseStream = null;
 		try {
@@ -106,9 +111,7 @@ public class Main {
 			String agentResponse = serverResponseStream.readLine();
 			serverResponseStream.close();
 			serverResponseStream = null;
-			if (!"SUCCESS".equalsIgnoreCase(agentResponse)) {
-				System.out.println("server communication failure1: " + agentResponse);
-			}
+			return "ACCEPTED".equalsIgnoreCase(agentResponse);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
@@ -127,6 +130,7 @@ public class Main {
 				}
 			}
 		}
+		return false;
 	}
 
 }
