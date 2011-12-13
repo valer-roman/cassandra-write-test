@@ -26,12 +26,20 @@ import com.sun.net.httpserver.HttpServer;
  */
 public class Main {
 
-	private static final int PROCESS_THREAD_COUNT = 10;
+	private static final int PROCESS_THREAD_COUNT = 3;
 	private static final long PRINT_INTERVAL = 60000;
 
 	private LinkedBlockingQueue<Data[]> queue = new LinkedBlockingQueue<Data[]>();
 	private final AtomicLong count = new AtomicLong(0);
 
+	private enum DB_SYSTEM {
+		NO_SQL,
+		RDBMS
+	}
+	
+	//system to test
+	private DB_SYSTEM dbSystemToTest = DB_SYSTEM.RDBMS;
+	
 	/**
 	 * @param args
 	 */
@@ -104,10 +112,16 @@ public class Main {
 	}
 
 	private class ProcessingQueue extends Thread {
-		private DAO dao = new DAO();
-
+		private DAO dao= null;
+		
 		@Override
 		public void run() {
+			if (dbSystemToTest == DB_SYSTEM.NO_SQL) {
+				dao = new NoSqlDAO();
+			}
+			if (dbSystemToTest == DB_SYSTEM.RDBMS) {
+				dao = new RdbmsDAO();
+			}
 			while (true) {
 				Data[] datas;
 				try {

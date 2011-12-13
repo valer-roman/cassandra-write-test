@@ -21,8 +21,8 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 public class Main {
 
-	private static final int THREAD_COUNT = 10;
-	private static final int PACKAGE_SIZE = 1000;
+	private static final int THREAD_COUNT = 7;
+	private static final int PACKAGE_SIZE = 100;
 	private static final long PRINT_INTERVAL = 60000;
 
 	private final AtomicLong count = new AtomicLong(0);
